@@ -52,9 +52,9 @@ buttonSubmit.addEventListener('click', () => {
     if (sim1.checked) {
       lgbt = 'SIM';
     } else if (nao1.checked){
-      lgbt = 'NAO';
+      lgbt = 'NÃO';
     } else if (naotenhocerteza1.checked) {
-      lgbt = 'NAO_TENHO_CERTEZA';
+      lgbt = 'NÃO_TENHO_CERTEZA';
     }
   }
 
@@ -62,9 +62,9 @@ buttonSubmit.addEventListener('click', () => {
     if (sim2.checked) {
       carbono = 'SIM';
     } else if (nao2.checked){
-      carbono = 'NAO';
+      carbono = 'NÃO';
     } else if (naotenhocerteza2.checked) {
-      carbono = 'NAO_TENHO_CERTEZA';
+      carbono = 'NÃO_TENHO_CERTEZA';
     }
   }
 
@@ -72,7 +72,7 @@ buttonSubmit.addEventListener('click', () => {
     if (sim3.checked) {
       esg = 'SIM';
     } else if (nao3.checked){
-      esg = 'NAO';
+      esg = 'NÃO';
     }
   }
 
@@ -80,14 +80,17 @@ buttonSubmit.addEventListener('click', () => {
   checkQuestion2();
   checkQuestion3();
 
-  console.log(nome.value);
-  console.log(email.value);
-  console.log(slider.value);
-  console.log(lgbt);
-  console.log(carbono);
-  console.log(esg);
-  console.log(valor);
-  console.log(comentario.value);
+  console.log( typeof nome.value);
+  console.log( typeof email.value);
+  console.log( typeof slider.value);
+  console.log( typeof lgbt);
+  console.log( typeof carbono);
+  console.log( typeof esg);
+  console.log( typeof valor);
+  console.log( typeof comentario.value);
+
+
+
 
   const data = {
     name: nome.value,
@@ -101,11 +104,11 @@ buttonSubmit.addEventListener('click', () => {
       },
       {
         id: '2',
-        ranger: lgbt
+        result: lgbt
       },
       {
         id: '3',
-        ranger: carbono
+        result: carbono
       },
       {
         id: '4',
@@ -113,12 +116,12 @@ buttonSubmit.addEventListener('click', () => {
       },
       {
         id: '5',
-        ranger: esg
+        result: esg
       },
     ]
   }
 
-  const apiUrl = 'http://localhost:8081/feedback';
+  const apiUrl = 'http://localhost:8080/feedback';
 
   const requestOptions = {
     method: 'POST',
@@ -135,7 +138,44 @@ buttonSubmit.addEventListener('click', () => {
     return response.json();
   }).then(data => {
     console.log('Resposta da API: ', data);
+      // Clear input fields after submitting
+      nome.value = '';
+      email.value = '';
+      slider.value = ''; // Assuming this should be reset as well
+      comentario.value = '';
+
+      // Reset radio buttons and select
+      sim1.checked = false;
+      nao1.checked = false;
+      naotenhocerteza1.checked = false;
+      sim2.checked = false;
+      nao2.checked = false;
+      naotenhocerteza2.checked = false;
+      sim3.checked = false;
+      nao3.checked = false;
+
+      // Clear the sliderValue element
+      sliderValue.textContent = '';
+
   }).catch(error => {
     console.error('Erro: ', error);
-  })
+     // Clear input fields after submitting
+     nome.value = '';
+     email.value = '';
+     slider.value = ''; // Assuming this should be reset as well
+     comentario.value = '';
+
+     // Reset radio buttons and select
+     sim1.checked = false;
+     nao1.checked = false;
+     naotenhocerteza1.checked = false;
+     sim2.checked = false;
+     nao2.checked = false;
+     naotenhocerteza2.checked = false;
+     sim3.checked = false;
+     nao3.checked = false;
+
+     // Clear the sliderValue element
+     sliderValue.textContent = '';
+  })
 })
